@@ -4,23 +4,23 @@ Widget header(BuildContext context, Function showSubMenu, Function selectMenu,
     GlobalKey submenuKey, String selectedMenu, String selectedSubMenu) {
   return Row(
     children: [
-      Row(children: [
-        Image.asset(
-          "assets/images/logo.png",
-          width: 80,
-          height: 80,
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        const Text(
-          'Universitas\nTeknologi Digital\nIndonesia',
-          style: TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-          ),
-        )
-      ]),
+      // Row(children: [
+      //   Image.asset(
+      //     "assets/images/logo.png",
+      //     width: 80,
+      //     height: 80,
+      //   ),
+      //   const SizedBox(
+      //     width: 10,
+      //   ),
+      //   const Text(
+      //     'Universitas\nTeknologi Digital\nIndonesia',
+      //     style: TextStyle(
+      //       fontSize: 18.0,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //   )
+      // ]),
       const Spacer(),
       for (String item in ['Home', 'Informasi', 'pendaftaran', 'Galeri'])
         GestureDetector(
