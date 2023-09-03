@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendaftaran_organisasi_mahasiswa/utils/themes/themes.dart';
+
+import 'presentation/pages/galery_screen.dart';
+import 'presentation/pages/home_screen.dart';
+import 'presentation/pages/information_screen.dart';
+import 'presentation/pages/registration_screen.dart';
+import 'utils/themes/responsive.dart';
 
 void main() => runApp(const MyApp());
 
@@ -25,8 +32,49 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<String> navList = ['Home', 'Informasi', 'pendaftaran', 'Galeri'];
+  TextEditingController textController = TextEditingController();
+
   int position = 0;
+  List<String> navList = ['Home', 'Informasi', 'Pendaftaran', 'Galeri'];
+
+  void _showSubMenu(BuildContext context) {
+    final RenderBox renderBox = context.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero);
+
+    showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(
+        position.dx,
+        position.dy + renderBox.size.height,
+        position.dx + renderBox.size.width,
+        position.dy + renderBox.size.height + 1.0,
+      ),
+      items: <PopupMenuItem<String>>[
+        const PopupMenuItem<String>(
+          value: 'Information 1',
+          child: Text('Information 1'),
+        ),
+        const PopupMenuItem<String>(
+          value: 'Information 2',
+          child: Text('Information 2'),
+        ),
+      ],
+    ).then((selectedSubMenu) {
+      if (selectedSubMenu != null) {
+        _selectSubMenu(selectedSubMenu);
+      }
+    });
+  }
+
+  void _selectSubMenu(String selectedSubMenu) {
+    setState(() {
+      // Implementasikan tindakan yang sesuai berdasarkan pilihan submenu yang dipilih di sini
+      // Misalnya, Anda bisa mengganti nilai position ke indeks 'Informasi' jika submenu dipilih
+      position = navList.indexOf('Informasi');
+      print(selectedSubMenu);
+    });
+  }
+
   Widget navBody = const HomeScreen();
 
   String searchIndex = '';
@@ -55,11 +103,16 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  bool isExpanded = false;
+
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
   }
+
+  String selectedSubMenu = '';
+  GlobalKey submenuKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -112,106 +165,233 @@ class _MainPageState extends State<MainPage> {
                   )),
             )
           : null,
-      body: Column(
-        children: <Widget>[
-          Visibility(
-            visible: ResponsiveLayout.isSmallScreen(context) ? false : true,
+      body: GestureDetector(
+        onTap: () {
+          if (isExpanded) {
+            // Tutup SearchBar jika sedang terbuka
+            setState(() {
+              isExpanded = false;
+            });
+          }
+        },
+        child: SizedBox(
+          width: double.infinity,
+          child: Center(
             child: Container(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(children: [
-                    Image.asset(
-                      "assets/images/logo.png",
-                      width: 80,
-                      height: 80,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Text(
-                      'Universitas\nTeknologi Digital\nIndonesia',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ]),
-                  SizedBox(
-                    height: 50,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: navList.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkWell(
-                          splashColor: Colors.yellow,
-                          hoverColor: Colors.green,
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15,
-                                horizontal: 10), // Tambahkan padding di sini
-                            child: Text(
-                              navList[index],
-                              style: const TextStyle(color: Colors.black),
+              constraints: const BoxConstraints(
+                maxWidth: 1115,
+              ),
+              child: Column(
+                children: <Widget>[
+                  Visibility(
+                    visible:
+                        ResponsiveLayout.isSmallScreen(context) ? false : true,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(children: [
+                            Image.asset(
+                              "assets/images/logo.png",
+                              width: 80,
+                              height: 80,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Universitas\nTeknologi Digital\nIndonesia',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            )
+                          ]),
+                          SizedBox(
+                            height: 50,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: navList.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (BuildContext context, int index) {
+                                return index == 1
+                                    ? Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 7),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          child: PopupMenuButton<String>(
+                                            offset: const Offset(80, 50),
+                                            onSelected: (selectedSubMenu) {
+                                              _selectSubMenu(selectedSubMenu);
+                                            },
+                                            itemBuilder: (context) => [
+                                              const PopupMenuItem(
+                                                value: 'Information 1',
+                                                child: Text('Information 1'),
+                                              ),
+                                              const PopupMenuItem(
+                                                value: 'Information 2',
+                                                child: Text('Information 2'),
+                                              ),
+                                            ],
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: 15,
+                                                horizontal: 10,
+                                              ),
+                                              child: Text(
+                                                navList[index],
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                  fontSize: 17,
+                                                  fontWeight: position == index
+                                                      ? FontWeight.bold
+                                                      : FontWeight.normal,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 7),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          child: InkWell(
+                                            splashColor: Theme.of(context)
+                                                .primaryColor
+                                                .withOpacity(.2),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: 15,
+                                                horizontal: 10,
+                                              ),
+                                              child: Text(
+                                                navList[index],
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                  fontSize: 17,
+                                                  fontWeight: position == index
+                                                      ? FontWeight.bold
+                                                      : FontWeight.normal,
+                                                ),
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              setState(() {
+                                                position = index;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      );
+                              },
                             ),
                           ),
-                          onTap: () {
-                            setState(() {
-                              position = index;
-                            });
-                          },
-                        );
-                      },
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                width: isExpanded
+                                    ? 200.0
+                                    : 47.0, // Ubah lebar sesuai kondisi
+                                height: 43.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    GestureDetector(
+                                      onTap: () => setState(() {
+                                        isExpanded =
+                                            !isExpanded; // Mengubah kondisi saat ikon pencarian diklik
+                                      }),
+                                      child: Container(
+                                        width: 47,
+                                        height: 43,
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 10,
+                                        ),
+                                        child: SvgPicture.asset(
+                                          "assets/images/ic_search.svg",
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        width: double.infinity,
+                                        padding: const EdgeInsets.only(
+                                          right: 10,
+                                        ),
+                                        child: TextField(
+                                          onChanged: (text) {
+                                            print('Search query: $text');
+                                          },
+                                          decoration: const InputDecoration(
+                                            contentPadding:
+                                                EdgeInsets.only(bottom: 5),
+                                            hintText: 'Search...',
+                                            border: InputBorder.none,
+                                            hintStyle: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    width: 200,
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        hintText: "Search",
-                        suffixIcon: const Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
+                  Visibility(
+                    visible: searchIndex.isNotEmpty ? true : false,
+                    child: Expanded(
+                      child: ListView.builder(
+                        itemCount: searchResults.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(searchResults[index]),
+                            // Handle item selection here
+                          );
+                        },
                       ),
-                      onChanged: (value) {
-                        searchIndex = value;
-                        _searchOrganizations(
-                            value); // Panggil fungsi pencarian saat perubahan input
-                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: SingleChildScrollView(
+                        child: navPage(position),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          Visibility(
-            visible: searchIndex.isNotEmpty ? true : false,
-            child: Expanded(
-              child: ListView.builder(
-                itemCount: searchResults.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(searchResults[index]),
-                    // Handle item selection here
-                  );
-                },
-              ),
-            ),
-          ),
-          Expanded(
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: SingleChildScrollView(
-                child: navPage(position),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -228,110 +408,12 @@ class _MainPageState extends State<MainPage> {
         navBody = const GaleryScreen();
       }
     });
-
     return navBody;
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            color: Colors.black,
-            height: 100,
-            width: 100,
-          ),
-          Container(
-            color: Colors.white,
-            height: 100,
-            width: 100,
-          ),
-        ],
-      ),
-    );
-  }
-}
 
-class InformationScreen extends StatelessWidget {
-  const InformationScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Information Screen"),
-    );
-  }
-}
-
-class RegistrationScreen extends StatelessWidget {
-  const RegistrationScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Registration Screen"),
-    );
-  }
-}
-
-class GaleryScreen extends StatelessWidget {
-  const GaleryScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Galery Screen"),
-    );
-  }
-}
-
-class ResponsiveLayout extends StatelessWidget {
-  final Widget largeScreen;
-  final Widget mediumScreen;
-  final Widget smallScreen;
-
-  const ResponsiveLayout({
-    required Key key,
-    required this.largeScreen,
-    required this.mediumScreen,
-    required this.smallScreen,
-  }) : super(key: key);
-
-  static bool isSmallScreen(BuildContext context) {
-    return MediaQuery.of(context).size.width < 800;
-  }
-
-  static bool isMediumScreen(BuildContext context) {
-    return MediaQuery.of(context).size.width >= 800 &&
-        MediaQuery.of(context).size.width < 1200;
-  }
-
-  static bool isLargeScreen(BuildContext context) {
-    return MediaQuery.of(context).size.width >= 1200;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (constraints.maxWidth >= 1200) {
-          return largeScreen;
-        } else if (constraints.maxWidth >= 800) {
-          return mediumScreen;
-        } else {
-          return smallScreen;
-        }
-      },
-    );
-  }
-}
 
 
 

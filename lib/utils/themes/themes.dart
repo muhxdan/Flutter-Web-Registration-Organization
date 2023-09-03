@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Themes {
   static final light = ThemeData(
     brightness: Brightness.light,
-    primaryColor: const Color(0xffF08519),
+    primaryColor: const Color(0xff292E59),
     scaffoldBackgroundColor: Colors.white,
     fontFamily: 'Sans',
     textTheme: const TextTheme(

@@ -40,6 +40,7 @@ dependencies:
   salomon_bottom_bar: ^3.3.2
   shifting_tabbar: ^1.0.2
   cupertino_tabbar: ^2.0.0
+  anim_search_bar: ^2.0.3
 
 dev_dependencies:
   flutter_test:
