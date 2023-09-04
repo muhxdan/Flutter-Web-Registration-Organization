@@ -174,222 +174,214 @@ class _MainPageState extends State<MainPage> {
             });
           }
         },
-        child: SizedBox(
-          width: double.infinity,
-          child: Center(
-            child: Container(
-              constraints: const BoxConstraints(
-                maxWidth: 1115,
-              ),
-              child: Column(
-                children: <Widget>[
-                  Visibility(
-                    visible:
-                        ResponsiveLayout.isSmallScreen(context) ? false : true,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(children: [
-                            Image.asset(
-                              "assets/images/logo.png",
-                              width: 80,
-                              height: 80,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Universitas\nTeknologi Digital\nIndonesia',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            )
-                          ]),
-                          SizedBox(
-                            height: 50,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: navList.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (BuildContext context, int index) {
-                                return index == 1
-                                    ? Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 7),
-                                        child: Material(
-                                          color: Colors.transparent,
-                                          child: PopupMenuButton<String>(
-                                            offset: const Offset(80, 50),
-                                            onSelected: (selectedSubMenu) {
-                                              _selectSubMenu(selectedSubMenu);
-                                            },
-                                            itemBuilder: (context) => [
-                                              const PopupMenuItem(
-                                                value: 'Information 1',
-                                                child: Text('Information 1'),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: 'Information 2',
-                                                child: Text('Information 2'),
-                                              ),
-                                            ],
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                vertical: 15,
-                                                horizontal: 10,
-                                              ),
-                                              child: Text(
-                                                navList[index],
-                                                style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                  fontSize: 17,
-                                                  fontWeight: position == index
-                                                      ? FontWeight.bold
-                                                      : FontWeight.normal,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    : Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 7),
-                                        child: Material(
-                                          color: Colors.transparent,
-                                          child: InkWell(
-                                            splashColor: Theme.of(context)
-                                                .primaryColor
-                                                .withOpacity(.2),
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                vertical: 15,
-                                                horizontal: 10,
-                                              ),
-                                              child: Text(
-                                                navList[index],
-                                                style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                  fontSize: 17,
-                                                  fontWeight: position == index
-                                                      ? FontWeight.bold
-                                                      : FontWeight.normal,
-                                                ),
-                                              ),
-                                            ),
-                                            onTap: () {
-                                              setState(() {
-                                                position = index;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      );
-                              },
-                            ),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Visibility(
+                visible: ResponsiveLayout.isSmallScreen(context) ? false : true,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  constraints: const BoxConstraints(
+                    maxWidth: 1115,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(children: [
+                        Image.asset(
+                          "assets/images/logo.png",
+                          width: 80,
+                          height: 80,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Universitas\nTeknologi Digital\nIndonesia',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              AnimatedContainer(
-                                duration: const Duration(milliseconds: 300),
-                                width: isExpanded
-                                    ? 200.0
-                                    : 47.0, // Ubah lebar sesuai kondisi
-                                height: 43.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () => setState(() {
-                                        isExpanded =
-                                            !isExpanded; // Mengubah kondisi saat ikon pencarian diklik
-                                      }),
-                                      child: Container(
-                                        width: 47,
-                                        height: 43,
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 10,
-                                        ),
-                                        child: SvgPicture.asset(
-                                          "assets/images/ic_search.svg",
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Container(
-                                        width: double.infinity,
-                                        padding: const EdgeInsets.only(
-                                          right: 10,
-                                        ),
-                                        child: TextField(
-                                          onChanged: (text) {
-                                            print('Search query: $text');
-                                          },
-                                          decoration: const InputDecoration(
-                                            contentPadding:
-                                                EdgeInsets.only(bottom: 5),
-                                            hintText: 'Search...',
-                                            border: InputBorder.none,
-                                            hintStyle: TextStyle(
-                                              color: Colors.white,
+                        )
+                      ]),
+                      SizedBox(
+                        height: 50,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: navList.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, int index) {
+                            return index == 1
+                                ? Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: PopupMenuButton<String>(
+                                        offset: const Offset(80, 50),
+                                        onSelected: (selectedSubMenu) {
+                                          _selectSubMenu(selectedSubMenu);
+                                        },
+                                        itemBuilder: (context) => [
+                                          const PopupMenuItem(
+                                            value: 'Information 1',
+                                            child: Text('Information 1'),
+                                          ),
+                                          const PopupMenuItem(
+                                            value: 'Information 2',
+                                            child: Text('Information 2'),
+                                          ),
+                                        ],
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 15,
+                                            horizontal: 10,
+                                          ),
+                                          child: Text(
+                                            navList[index],
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontSize: 17,
+                                              fontWeight: position == index
+                                                  ? FontWeight.bold
+                                                  : FontWeight.normal,
                                             ),
                                           ),
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                          ),
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  )
+                                : Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7),
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: InkWell(
+                                        splashColor: Theme.of(context)
+                                            .primaryColor
+                                            .withOpacity(.2),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 15,
+                                            horizontal: 10,
+                                          ),
+                                          child: Text(
+                                            navList[index],
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontSize: 17,
+                                              fontWeight: position == index
+                                                  ? FontWeight.bold
+                                                  : FontWeight.normal,
+                                            ),
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          setState(() {
+                                            position = index;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  );
+                          },
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            width: isExpanded
+                                ? 200.0
+                                : 47.0, // Ubah lebar sesuai kondisi
+                            height: 43.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () => setState(() {
+                                    isExpanded =
+                                        !isExpanded; // Mengubah kondisi saat ikon pencarian diklik
+                                  }),
+                                  child: Container(
+                                    width: 47,
+                                    height: 43,
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                    ),
+                                    child: SvgPicture.asset(
+                                      "assets/images/ic_search.svg",
+                                    ),
+                                  ),
                                 ),
-                              )
-                            ],
+                                Expanded(
+                                  child: Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.only(
+                                      right: 10,
+                                    ),
+                                    child: TextField(
+                                      onChanged: (text) {
+                                        print('Search query: $text');
+                                      },
+                                      decoration: const InputDecoration(
+                                        contentPadding:
+                                            EdgeInsets.only(bottom: 5),
+                                        hintText: 'Search...',
+                                        border: InputBorder.none,
+                                        hintStyle: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           )
                         ],
-                      ),
-                    ),
+                      )
+                    ],
                   ),
-                  Visibility(
-                    visible: searchIndex.isNotEmpty ? true : false,
-                    child: Expanded(
-                      child: ListView.builder(
-                        itemCount: searchResults.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(searchResults[index]),
-                            // Handle item selection here
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: SingleChildScrollView(
-                        child: navPage(position),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+              Visibility(
+                visible: searchIndex.isNotEmpty ? true : false,
+                child: Expanded(
+                  child: ListView.builder(
+                    itemCount: searchResults.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(searchResults[index]),
+                        // Handle item selection here
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: SingleChildScrollView(
+                    child: navPage(position),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
