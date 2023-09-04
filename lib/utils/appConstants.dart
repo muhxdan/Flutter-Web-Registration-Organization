@@ -32,7 +32,7 @@ class AppConstants {
   static const String homeText12 =
       'Situs ini diperuntukkan khusus bagi Mahasiswa Universitas Teknologi Digital Indonesia untuk Mendapatkan informasi mengenai organisasi serta tempat untuk mendaftar ke organisasi yang disukai. ';
   static const String homeText13 =
-      'Jl. Raya Janti Karang Jambe No. 143Yogyakarta 55198, Indonesia.';
+      'Jl. Raya Janti Karang Jambe No. 143 Yogyakarta 55198, Indonesia.';
   static const String homeText14 = '+62 274 486664';
   static const String homeText15 = 'info@utdi.ac.id';
   static const String homeText16 =

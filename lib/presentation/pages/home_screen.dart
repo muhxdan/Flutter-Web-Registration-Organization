@@ -26,6 +26,7 @@ class HomeScreen extends StatelessWidget {
           const Section2(),
           AppConstants.height(120),
           const Section3(),
+          AppConstants.height(120),
           Container(
             color: Theme.of(context).primaryColor,
             child: Material(
@@ -34,6 +35,7 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    AppConstants.height(80),
                     Container(
                       constraints: const BoxConstraints(maxWidth: 1115),
                       child: Row(
@@ -79,19 +81,22 @@ class HomeScreen extends StatelessWidget {
                                     children: [
                                       SocialMediaList(
                                         image: "assets/images/ic_youtube.svg",
-                                        url: "https://www.youtube.com",
+                                        url:
+                                            "https://www.youtube.com/@utdiofficial",
                                       ),
                                       SocialMediaList(
                                         image: "assets/images/ic_instagram.svg",
-                                        url: "",
+                                        url:
+                                            "https://www.instagram.com/utdiofficial/",
                                       ),
                                       SocialMediaList(
                                         image: "assets/images/ic_google.svg",
-                                        url: "",
+                                        url: "https://www.utdi.ac.id/",
                                       ),
                                       SocialMediaList(
                                         image: "assets/images/ic_linkedin.svg",
-                                        url: "",
+                                        url:
+                                            "https://www.linkedin.com/school/utdiofficial/",
                                       ),
                                     ],
                                   ),
@@ -125,15 +130,24 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Divider(
-                      color: Colors.white,
+                    Container(
+                      constraints: const BoxConstraints(
+                        maxWidth: 1115,
+                      ),
+                      child: const Divider(
+                        color: Colors.white,
+                      ),
                     ),
                     AppConstants.height(30),
-                    const Text(
-                      AppConstants.homeText16,
-                      style: TextStyle(color: Colors.white),
+                    const SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        AppConstants.homeText16,
+                        style: TextStyle(color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    AppConstants.height(15),
+                    AppConstants.height(30),
                   ],
                 ),
               ),

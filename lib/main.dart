@@ -376,8 +376,12 @@ class _MainPageState extends State<MainPage> {
               Expanded(
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: SingleChildScrollView(
-                    child: navPage(position),
+                  child: Scrollbar(
+                    thickness: 10,
+                    thumbVisibility: true,
+                    child: SingleChildScrollView(
+                      child: navPage(position),
+                    ),
                   ),
                 ),
               ),
