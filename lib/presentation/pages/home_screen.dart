@@ -26,134 +26,216 @@ class HomeScreen extends StatelessWidget {
           const Section2(),
           AppConstants.height(120),
           const Section3(),
+          AppConstants.height(150),
+          const Section4(),
           AppConstants.height(120),
-          Container(
-            color: Theme.of(context).primaryColor,
-            child: Material(
-              color: Colors.transparent,
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AppConstants.height(80),
-                    Container(
-                      constraints: const BoxConstraints(maxWidth: 1115),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: 432,
-                            height: 246,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      "assets/images/logo_white.png",
-                                      width: 70,
-                                    ),
-                                    AppConstants.width(7),
-                                    const Text(
-                                      "Universitas\nTeknologi Digital\nIndonesia",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                AppConstants.height(30),
-                                const Text(
-                                  AppConstants.homeText12,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                                AppConstants.height(50),
-                                const SizedBox(
-                                  width: 200,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SocialMediaList(
-                                        image: "assets/images/ic_youtube.svg",
-                                        url:
-                                            "https://www.youtube.com/@utdiofficial",
-                                      ),
-                                      SocialMediaList(
-                                        image: "assets/images/ic_instagram.svg",
-                                        url:
-                                            "https://www.instagram.com/utdiofficial/",
-                                      ),
-                                      SocialMediaList(
-                                        image: "assets/images/ic_google.svg",
-                                        url: "https://www.utdi.ac.id/",
-                                      ),
-                                      SocialMediaList(
-                                        image: "assets/images/ic_linkedin.svg",
-                                        url:
-                                            "https://www.linkedin.com/school/utdiofficial/",
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 517,
-                            height: 248,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const ListInfoUniv(
-                                  title: "Address:",
-                                  desc: AppConstants.homeText13,
-                                ),
-                                AppConstants.height(25),
-                                const ListInfoUniv(
-                                  title: "Phone:",
-                                  desc: AppConstants.homeText14,
-                                ),
-                                AppConstants.height(25),
-                                const ListInfoUniv(
-                                  title: "Email:",
-                                  desc: AppConstants.homeText15,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+          const SectionFooter(),
+        ],
+      ),
+    );
+  }
+}
+
+class Section4 extends StatelessWidget {
+  const Section4({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: const BoxConstraints(
+        maxWidth: 1115,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            width: 612,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Eksplorasi Organisasi\nMahasiswa: ",
+                        style: TextStyle(
+                          fontSize: 40,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Container(
-                      constraints: const BoxConstraints(
-                        maxWidth: 1115,
+                      TextSpan(
+                        text: "Galeri Kegiatan",
+                        style: TextStyle(
+                          fontSize: 40,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
-                      child: const Divider(
-                        color: Colors.white,
-                      ),
-                    ),
-                    AppConstants.height(30),
-                    const SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        AppConstants.homeText16,
-                        style: TextStyle(color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    AppConstants.height(30),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+                AppConstants.height(48),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Theme.of(context).primaryColor,
+                    minimumSize: const Size(200, 55),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6.0),
+                    ),
+                  ),
+                  child: const Text(
+                    "GALERI",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
+          Image.asset(
+            "assets/images/group3.png",
+            width: 415,
+            height: 531,
+          )
         ],
+      ),
+    );
+  }
+}
+
+class SectionFooter extends StatelessWidget {
+  const SectionFooter({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Theme.of(context).primaryColor,
+      child: Material(
+        color: Colors.transparent,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            AppConstants.height(80),
+            Container(
+              constraints: const BoxConstraints(maxWidth: 1115),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 432,
+                    height: 246,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(
+                              "assets/images/logo_white.png",
+                              width: 70,
+                            ),
+                            AppConstants.width(7),
+                            const Text(
+                              "Universitas\nTeknologi Digital\nIndonesia",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            )
+                          ],
+                        ),
+                        AppConstants.height(30),
+                        const Text(
+                          AppConstants.homeText12,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                          ),
+                        ),
+                        AppConstants.height(50),
+                        const SizedBox(
+                          width: 200,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SocialMediaList(
+                                image: "assets/images/ic_youtube.svg",
+                                url: "https://www.youtube.com/@utdiofficial",
+                              ),
+                              SocialMediaList(
+                                image: "assets/images/ic_instagram.svg",
+                                url: "https://www.instagram.com/utdiofficial/",
+                              ),
+                              SocialMediaList(
+                                image: "assets/images/ic_google.svg",
+                                url: "https://www.utdi.ac.id/",
+                              ),
+                              SocialMediaList(
+                                image: "assets/images/ic_linkedin.svg",
+                                url:
+                                    "https://www.linkedin.com/school/utdiofficial/",
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 517,
+                    height: 248,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const ListInfoUniv(
+                          title: "Address:",
+                          desc: AppConstants.homeText13,
+                        ),
+                        AppConstants.height(25),
+                        const ListInfoUniv(
+                          title: "Phone:",
+                          desc: AppConstants.homeText14,
+                        ),
+                        AppConstants.height(25),
+                        const ListInfoUniv(
+                          title: "Email:",
+                          desc: AppConstants.homeText15,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              constraints: const BoxConstraints(
+                maxWidth: 1115,
+              ),
+              child: const Divider(
+                color: Colors.white,
+              ),
+            ),
+            AppConstants.height(30),
+            const SizedBox(
+              width: double.infinity,
+              child: Text(
+                AppConstants.homeText16,
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            AppConstants.height(30),
+          ],
+        ),
       ),
     );
   }

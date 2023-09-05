@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendaftaran_organisasi_mahasiswa/utils/themes/themes.dart';
@@ -16,6 +17,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown
+        },
+      ),
       title: 'Pendaftaran Organisasi Mahasiswa',
       debugShowCheckedModeBanner: false,
       theme: Themes.light,
@@ -32,6 +41,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final ScrollController scrollController = ScrollController();
   TextEditingController textController = TextEditingController();
 
   int position = 0;
@@ -376,12 +386,8 @@ class _MainPageState extends State<MainPage> {
               Expanded(
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: Scrollbar(
-                    thickness: 10,
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      child: navPage(position),
-                    ),
+                  child: SingleChildScrollView(
+                    child: navPage(position),
                   ),
                 ),
               ),
@@ -407,10 +413,6 @@ class _MainPageState extends State<MainPage> {
     return navBody;
   }
 }
-
-
-
-
 
 
 // class MyHomePage extends StatefulWidget {
