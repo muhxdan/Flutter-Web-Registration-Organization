@@ -6,6 +6,7 @@ import 'package:pendaftaran_organisasi_mahasiswa/utils/themes/themes.dart';
 import 'presentation/pages/galery_screen.dart';
 import 'presentation/pages/home_screen.dart';
 import 'presentation/pages/information_screen.dart';
+import 'presentation/pages/login_screen.dart';
 import 'presentation/pages/registration_screen.dart';
 import 'utils/themes/responsive.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'Pendaftaran Organisasi Mahasiswa',
       debugShowCheckedModeBanner: false,
       theme: Themes.light,
-      home: const MainPage(),
+      home: const LoginScreen(),
     );
   }
 }
