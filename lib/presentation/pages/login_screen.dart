@@ -1,5 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:pendaftaran_organisasi_mahasiswa/presentation/pages/registration_screen.dart';
 import 'package:pendaftaran_organisasi_mahasiswa/utils/appConstants.dart';
+
+import '../../data/service/firebase_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -9,14 +13,34 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
+  String? _email;
+  String? _password;
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
     super.dispose();
+  }
+
+  void _signIn() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      setState(() {
+        _isLoading = true;
+      });
+      String result =
+          await AuthMethods().signInUser(email: _email!, password: _password!);
+      if (result != 'success') {
+        showSnackBar(result, context);
+        print(result);
+      } else {
+        showSnackBar("success", context);
+      }
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -51,39 +75,51 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 40),
-                      const Text(
-                        'Email',
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      CustomTextField(
-                        keyboardType: TextInputType.emailAddress,
-                        isPassword: false,
-                        hintText: 'Example@email.com',
-                        controller: emailController,
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Password',
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      CustomTextField(
-                        keyboardType: TextInputType.text,
-                        isPassword:
-                            true, // Atau TextInputType.visiblePassword jika Anda ingin mematikan obscureText
-                        hintText: 'At least 8 characters',
-                        controller: passwordController,
-                      ),
+                      Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Email',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              CustomTextField(
+                                keyboardType: TextInputType.emailAddress,
+                                hintText: "Example@email.com",
+                                isPassword: false,
+                                onSaved: (input) => _email = input!,
+                                validator: (input) => !input!.contains('@')
+                                    ? 'Please enter a valid email'
+                                    : null,
+                              ),
+                              const SizedBox(height: 16),
+                              const Text(
+                                'Password',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              CustomTextField(
+                                keyboardType: TextInputType.text,
+                                isPassword: true,
+                                hintText: 'At least 8 characters',
+                                validator: (input) => input!.length < 6
+                                    ? 'Must be at least 6 characters'
+                                    : null,
+                                onSaved: (input) => _password = input!,
+                              ),
+                            ],
+                          )),
                       const SizedBox(height: 24),
                       ElevatedButton(
                         onPressed: () {
-                          final String email = emailController.text;
-                          final String password = passwordController.text;
+                          _signIn();
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
@@ -93,7 +129,43 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        child: const Text('Sign In'),
+                        child: _isLoading
+                            ? Center(
+                                child: Transform.scale(
+                                scale: 0.5,
+                                child: const CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              ))
+                            : const Text('Sign In'),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: "Don't you have an account? ",
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: 'Sign up',
+                              style: const TextStyle(
+                                color: Colors.blue,
+                                // Warna yang berbeda untuk tautan "Sign up"
+                                decoration: TextDecoration.underline,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RegistrationScreen(),
+                                    ),
+                                  );
+                                },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -121,21 +193,25 @@ class _LoginScreenState extends State<LoginScreen> {
 class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final String hintText;
-  final TextEditingController controller;
   final bool isPassword;
+  final void Function(String?)? onSaved;
+  final String? Function(String?)? validator;
 
-  const CustomTextField(
-      {super.key,
-      required this.keyboardType,
-      required this.hintText,
-      required this.controller,
-      required this.isPassword});
+  const CustomTextField({
+    Key? key,
+    required this.keyboardType,
+    required this.hintText,
+    required this.isPassword,
+    this.onSaved,
+    this.validator,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onSaved: onSaved, // Gunakan onSaved yang diterima
+      validator: validator, // Gunakan validator yang diterima
       keyboardType: keyboardType,
-      controller: controller,
       cursorColor: const Color(0xFF162D3A),
       obscureText: isPassword,
       decoration: InputDecoration(
@@ -144,7 +220,6 @@ class CustomTextField extends StatelessWidget {
         ),
         hintText: hintText,
         focusedBorder: OutlineInputBorder(
-          // Gunakan warna yang telah ditentukan jika ada, jika tidak, gunakan warna default
           borderSide: const BorderSide(
             color: Color(0xFF162D3A), // Default color
           ),

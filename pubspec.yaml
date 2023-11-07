@@ -43,7 +43,11 @@ dependencies:
   anim_search_bar: ^2.0.3
   url_launcher: ^6.1.14
   firebase_core: ^2.16.0
+  firebase_auth: ^4.12.1
+  firebase_storage: ^11.4.1
+  cloud_firestore: ^4.12.2
   flutter_dotenv: ^5.1.0
+
 
 dev_dependencies:
   flutter_test:
