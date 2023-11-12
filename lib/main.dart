@@ -206,14 +206,11 @@ class _MainPageState extends State<MainPage> {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text(
-                          'Universitas\nTeknologi Digital\nIndonesia',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        )
+                        Image.asset(
+                          "assets/images/logo_hima.png",
+                          width: 70,
+                          height: 70,
+                        ),
                       ]),
                       SizedBox(
                         height: 50,
@@ -251,8 +248,10 @@ class _MainPageState extends State<MainPage> {
                                           child: Text(
                                             navList[index],
                                             style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
+                                              color: position == index
+                                                  ? Theme.of(context)
+                                                      .primaryColor
+                                                  : Colors.black,
                                               fontSize: 17,
                                               fontWeight: position == index
                                                   ? FontWeight.bold
@@ -282,8 +281,10 @@ class _MainPageState extends State<MainPage> {
                                           child: Text(
                                             navList[index],
                                             style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
+                                              color: position == index
+                                                  ? Theme.of(context)
+                                                      .primaryColor
+                                                  : Colors.black,
                                               fontSize: 17,
                                               fontWeight: position == index
                                                   ? FontWeight.bold
@@ -302,67 +303,55 @@ class _MainPageState extends State<MainPage> {
                           },
                         ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            width: isExpanded
-                                ? 200.0
-                                : 47.0, // Ubah lebar sesuai kondisi
-                            height: 43.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                GestureDetector(
-                                  onTap: () => setState(() {
-                                    isExpanded =
-                                        !isExpanded; // Mengubah kondisi saat ikon pencarian diklik
-                                  }),
-                                  child: Container(
-                                    width: 47,
-                                    height: 43,
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 10,
-                                    ),
-                                    child: SvgPicture.asset(
-                                      "assets/images/ic_search.svg",
-                                    ),
-                                  ),
+                      Row(
+                        children: [
+                          TextButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              overlayColor: MaterialStateProperty.all(
+                                  Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(.2)),
+                              minimumSize: MaterialStateProperty.all(
+                                  const Size(100, 50)),
+                              foregroundColor:
+                                  MaterialStateProperty.all(Colors.black),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6.0),
                                 ),
-                                Expanded(
-                                  child: Container(
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.only(
-                                      right: 10,
-                                    ),
-                                    child: TextField(
-                                      onChanged: (text) {
-                                        print('Search query: $text');
-                                      },
-                                      decoration: const InputDecoration(
-                                        contentPadding:
-                                            EdgeInsets.only(bottom: 5),
-                                        hintText: 'Search...',
-                                        border: InputBorder.none,
-                                        hintStyle: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          )
+                            child: const Text(
+                              "Sign up",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Theme.of(context).primaryColor,
+                              minimumSize: const Size(100, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6.0),
+                              ),
+                            ),
+                            child: const Text(
+                              "Login",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ],
                       )
                     ],
@@ -413,101 +402,3 @@ class _MainPageState extends State<MainPage> {
     return navBody;
   }
 }
-
-
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({super.key});
-
-//   @override
-//   _MyHomePageState createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   String selectedMenu = 'Home';
-//   String selectedSubMenu = '';
-//   GlobalKey submenuKey = GlobalKey();
-
-//   void _selectMenu(String menu) {
-//     setState(() {
-//       selectedMenu = menu;
-//       selectedSubMenu = '';
-//     });
-//   }
-
-//   void _selectSubMenu(String subMenu) {
-//     setState(() {
-//       selectedSubMenu = subMenu;
-//       selectedMenu = 'Informasi';
-//     });
-//   }
-
-//   void _showSubMenu(BuildContext context) {
-//     final RenderBox renderBox =
-//         submenuKey.currentContext!.findRenderObject() as RenderBox;
-//     final position = renderBox.localToGlobal(Offset.zero);
-
-//     showMenu(
-//       context: context,
-//       position: RelativeRect.fromLTRB(
-//         position.dx,
-//         position.dy + renderBox.size.height,
-//         position.dx + renderBox.size.width,
-//         position.dy + renderBox.size.height + 1.0,
-//       ),
-//       items: <PopupMenuItem<String>>[
-//         const PopupMenuItem<String>(
-//           value: 'Information 1',
-//           child: Text('Information 1'),
-//         ),
-//         const PopupMenuItem<String>(
-//           value: 'Information 2',
-//           child: Text('Information 2'),
-//         ),
-//       ],
-//     ).then((selectedSubMenu) {
-//       if (selectedSubMenu != null) {
-//         _selectSubMenu(selectedSubMenu);
-//       }
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Column(
-//         children: [
-//           Container(
-//             padding: const EdgeInsets.all(16.0),
-//             child: header(context, _showSubMenu, _selectMenu, submenuKey,
-//                 selectedMenu, selectedSubMenu),
-//           ),
-//           if (selectedSubMenu.isNotEmpty)
-//             Container(
-//               padding: const EdgeInsets.all(16.0),
-//               child: Text(
-//                 'Konten $selectedSubMenu',
-//                 style: const TextStyle(
-//                   fontSize: 18.0,
-//                 ),
-//               ),
-//             ),
-//           if (selectedMenu != 'Informasi' && selectedSubMenu.isEmpty)
-//             Container(
-//               padding: const EdgeInsets.all(16.0),
-//               child: Text(
-//                 'Konten $selectedMenu',
-//                 style: const TextStyle(
-//                   fontSize: 18.0,
-//                 ),
-//               ),
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-
-
-
-

@@ -27,8 +27,6 @@ class HomeScreen extends StatelessWidget {
           AppConstants.height(120),
           const Section3(),
           AppConstants.height(150),
-          const Section4(),
-          AppConstants.height(120),
           const SectionFooter(),
         ],
       ),
@@ -141,16 +139,16 @@ class SectionFooter extends StatelessWidget {
                             Image.asset(
                               "assets/images/logo_white.png",
                               width: 70,
+                              height: 70,
                             ),
-                            AppConstants.width(7),
-                            const Text(
-                              "Universitas\nTeknologi Digital\nIndonesia",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            )
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Image.asset(
+                              "assets/images/logo_hima_white.png",
+                              width: 60,
+                              height: 60,
+                            ),
                           ],
                         ),
                         AppConstants.height(30),
@@ -305,23 +303,38 @@ class Section3 extends StatelessWidget {
       constraints: const BoxConstraints(
         maxWidth: 1115,
       ),
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: const Column(
         children: [
-          Section3Item(
-            image: "assets/images/section2-1.png",
-            title: AppConstants.homeText6,
-            desc: AppConstants.homeText9,
+          Text(
+            AppConstants.homeTextsection3title,
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
           ),
-          Section3Item(
-            image: "assets/images/section2-2.png",
-            title: AppConstants.homeText7,
-            desc: AppConstants.homeText10,
+          SizedBox(
+            height: 50,
           ),
-          Section3Item(
-            image: "assets/images/section2-3.png",
-            title: AppConstants.homeText8,
-            desc: AppConstants.homeText11,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Section3Item(
+                image: "assets/images/section2-1.png",
+                title: AppConstants.homeText6,
+                desc: AppConstants.homeText9,
+              ),
+              Section3Item(
+                image: "assets/images/section2-2.png",
+                title: AppConstants.homeText7,
+                desc: AppConstants.homeText10,
+              ),
+              Section3Item(
+                image: "assets/images/section2-3.png",
+                title: AppConstants.homeText8,
+                desc: AppConstants.homeText11,
+              ),
+            ],
           ),
         ],
       ),
@@ -344,10 +357,10 @@ class Section3Item extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: const Color(0xffF5F9FC),
+              color: Theme.of(context).primaryColor.withOpacity(0.2),
             ),
             child: Image.asset(
               image,
@@ -395,14 +408,16 @@ class Section2 extends StatelessWidget {
               SizedBox(
                 width: 546,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
                       AppConstants.homeText4,
                       style: TextStyle(
-                        fontSize: 38,
+                        fontSize: 30,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
+                      textAlign: TextAlign.start,
                     ),
                     AppConstants.height(24),
                     const Text(
