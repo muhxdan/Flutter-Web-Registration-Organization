@@ -13,7 +13,7 @@ class AppConstants {
   // Home Section 2
   static const String homeText4 = 'Apa itu HIMAFORKA?';
   static const String homeText5 =
-      'Lembaga kemahasiswaan yang dibentuk dari kristaisasi kesamaan dasar pemikiran dan aspirasi mahasiswa khususnya program studi Informatika di Universitas Teknologi Digital Indonesia.HIMAFORKA Universitas Teknologi Digital Indonesia disahkan pada tanggal 18 April 2022.';
+      'Lembaga kemahasiswaan yang dibentuk dari kristaisasi kesamaan dasar pemikiran dan aspirasi mahasiswa khususnya program studi Informatika di Universitas Teknologi Digital Indonesia. HIMAFORKA Universitas Teknologi Digital Indonesia disahkan pada tanggal 18 April 2022.';
 
 
   static const String homeTitleBenefit = 'Apa Keuntungan Bergabung HIMAFORKA?';
@@ -35,7 +35,7 @@ class AppConstants {
 
   // Footer Section
   static const String homeText12 =
-      'Situs ini diperuntukkan khusus bagi Mahasiswa Universitas Teknologi Digital Indonesia untuk Mendapatkan informasi mengenai organisasi serta tempat untuk mendaftar ke organisasi yang disukai. ';
+      'Situs ini diperuntukkan khusus bagi Mahasiswa Universitas Teknologi Digital Indonesia jurusan Informatika untuk Mendapatkan informasi mengenai HIMAFORKA serta tempat untuk mendaftar menjadi anggota HIMAFORKA.';
   static const String homeText13 =
       'Jl. Raya Janti Karang Jambe No. 143 Yogyakarta 55198, Indonesia.';
   static const String homeText14 = '+62 274 486664';

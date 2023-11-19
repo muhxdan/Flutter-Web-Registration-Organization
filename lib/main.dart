@@ -126,10 +126,25 @@ class _MainPageState extends State<MainPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset(
-                      "assets/images/logo_hima.png",
-                      width: 70,
-                      height: 70,
+                    Row(
+                      children: [
+                        Image.asset(
+                          "assets/images/logo_hima.png",
+                          width: 70,
+                          height: 70,
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          "HIMAFORKA\nUTDI",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ],
                     ),
                     Row(
                       children: [
@@ -142,89 +157,91 @@ class _MainPageState extends State<MainPage> {
                             itemBuilder: (BuildContext context, int index) {
                               return index == 1
                                   ? Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 7),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: PopupMenuButton<String>(
-                                    offset: const Offset(80, 50),
-                                    onSelected: (selectedSubMenu) {
-                                      _selectSubMenu(selectedSubMenu);
-                                    },
-                                    itemBuilder: (context) => [
-                                      const PopupMenuItem(
-                                        value: 'Information 1',
-                                        child: Text('Information 1'),
-                                      ),
-                                      const PopupMenuItem(
-                                        value: 'Information 2',
-                                        child: Text('Information 2'),
-                                      ),
-                                    ],
-                                    child: Container(
                                       padding: const EdgeInsets.symmetric(
-                                        vertical: 15,
-                                        horizontal: 10,
-                                      ),
-                                      child: Text(
-                                        navList[index],
-                                        style: TextStyle(
-                                          color: position == index
-                                              ? Theme.of(context)
-                                              .primaryColor
-                                              : Colors.black,
-                                          fontSize: 17,
-                                          fontWeight: position == index
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
+                                          horizontal: 7),
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        child: PopupMenuButton<String>(
+                                          offset: const Offset(80, 50),
+                                          onSelected: (selectedSubMenu) {
+                                            _selectSubMenu(selectedSubMenu);
+                                          },
+                                          itemBuilder: (context) => [
+                                            const PopupMenuItem(
+                                              value: 'Information 1',
+                                              child: Text('Information 1'),
+                                            ),
+                                            const PopupMenuItem(
+                                              value: 'Information 2',
+                                              child: Text('Information 2'),
+                                            ),
+                                          ],
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 15,
+                                              horizontal: 10,
+                                            ),
+                                            child: Text(
+                                              navList[index],
+                                              style: TextStyle(
+                                                color: position == index
+                                                    ? Theme.of(context)
+                                                        .primaryColor
+                                                    : Colors.black,
+                                                fontSize: 14,
+                                                fontWeight: position == index
+                                                    ? FontWeight.bold
+                                                    : FontWeight.normal,
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              )
+                                    )
                                   : Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 7),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    splashColor: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(.2),
-                                    borderRadius:
-                                    BorderRadius.circular(10.0),
-                                    child: Container(
                                       padding: const EdgeInsets.symmetric(
-                                        vertical: 15,
-                                        horizontal: 10,
-                                      ),
-                                      child: Text(
-                                        navList[index],
-                                        style: TextStyle(
-                                          color: position == index
-                                              ? Theme.of(context)
+                                          horizontal: 7),
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        child: InkWell(
+                                          splashColor: Theme.of(context)
                                               .primaryColor
-                                              : Colors.black,
-                                          fontSize: 17,
-                                          fontWeight: position == index
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
+                                              .withOpacity(.2),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 15,
+                                              horizontal: 10,
+                                            ),
+                                            child: Text(
+                                              navList[index],
+                                              style: TextStyle(
+                                                color: position == index
+                                                    ? Theme.of(context)
+                                                        .primaryColor
+                                                    : Colors.black,
+                                                fontSize: 14,
+                                                fontWeight: position == index
+                                                    ? FontWeight.bold
+                                                    : FontWeight.normal,
+                                              ),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              position = index;
+                                            });
+                                          },
                                         ),
                                       ),
-                                    ),
-                                    onTap: () {
-                                      setState(() {
-                                        position = index;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              );
+                                    );
                             },
                           ),
                         ),
-                        const SizedBox(width: 20,),
+                        const SizedBox(
+                          width: 20,
+                        ),
                         ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
