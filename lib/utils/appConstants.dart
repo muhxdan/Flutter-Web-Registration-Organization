@@ -4,15 +4,21 @@ class AppConstants {
   static const String appName = 'My App';
 
   // Home Section 1
-  static const String homeText1 = 'Selamat Datang di Situs Web HIMAFORKA!';
+  static const String homeText1 = 'Selamat Datang\ndi Website';
+  static const String homeText1_2 = 'HIMAFORKA!';
   static const String homeText2 =
-      'Temukan peluang untuk terhubung, belajar, dan berkontribusi di kampus melalui organisasi mahasiswa.';
+      'Jangan lewatkan kesempatan untuk menjadi bagian dari komunitas kami! Bergabunglah sekarang dan nikmati manfaat eksklusif yang hanya bisa Anda dapatkan di dalamnya.';
   static const String homeText3 = 'Daftar Sekarang';
 
   // Home Section 2
   static const String homeText4 = 'Apa itu HIMAFORKA?';
   static const String homeText5 =
-      'Universitas Teknologi Digital Indonesia memiliki beragam organisasi mahasiswa yang menawarkan berbagai kegiatan, proyek, dan event. Bergabunglah bersama kami dan temukan peluang untuk terlibat dalam berbagai aktivitas yang memperkaya pengalaman kuliahmu.';
+      'Lembaga kemahasiswaan yang dibentuk dari kristaisasi kesamaan dasar pemikiran dan aspirasi mahasiswa khususnya program studi Informatika di Universitas Teknologi Digital Indonesia.HIMAFORKA Universitas Teknologi Digital Indonesia disahkan pada tanggal 18 April 2022.';
+
+
+  static const String homeTitleBenefit = 'Apa Keuntungan Bergabung HIMAFORKA?';
+  static const String homeDescBenefit = 'Dengan bergabung bersama kami, tentu banyak keuntungannya loh, yuk liat apa yang bisa kamu dapat!';
+
 
   // Home Section 3 - title
   static const String homeText6 = 'Pengembangan Diri';

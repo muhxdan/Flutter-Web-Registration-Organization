@@ -4,23 +4,6 @@ Widget header(BuildContext context, Function showSubMenu, Function selectMenu,
     GlobalKey submenuKey, String selectedMenu, String selectedSubMenu) {
   return Row(
     children: [
-      // Row(children: [
-      //   Image.asset(
-      //     "assets/images/logo.png",
-      //     width: 80,
-      //     height: 80,
-      //   ),
-      //   const SizedBox(
-      //     width: 10,
-      //   ),
-      //   const Text(
-      //     'Universitas\nTeknologi Digital\nIndonesia',
-      //     style: TextStyle(
-      //       fontSize: 18.0,
-      //       fontWeight: FontWeight.bold,
-      //     ),
-      //   )
-      // ]),
       const Spacer(),
       for (String item in ['Home', 'Informasi', 'pendaftaran', 'Galeri'])
         GestureDetector(
@@ -51,7 +34,7 @@ Widget header(BuildContext context, Function showSubMenu, Function selectMenu,
                   if (item == 'Informasi')
                     Icon(
                       Icons
-                          .keyboard_arrow_down, // Menggunakan ikon anak panah ke bawah
+                          .keyboard_arrow_down,
                       color: selectedMenu == item ||
                               (selectedSubMenu.isNotEmpty &&
                                   item == 'Informasi')

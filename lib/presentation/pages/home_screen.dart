@@ -34,80 +34,6 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class Section4 extends StatelessWidget {
-  const Section4({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 1115,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: 612,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RichText(
-                  text: const TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "Eksplorasi Organisasi\nMahasiswa: ",
-                        style: TextStyle(
-                          fontSize: 40,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextSpan(
-                        text: "Galeri Kegiatan",
-                        style: TextStyle(
-                          fontSize: 40,
-                          color: Colors.black,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                AppConstants.height(48),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Theme.of(context).primaryColor,
-                    minimumSize: const Size(200, 55),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
-                    ),
-                  ),
-                  child: const Text(
-                    "GALERI",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Image.asset(
-            "assets/images/group3.png",
-            width: 415,
-            height: 531,
-          )
-        ],
-      ),
-    );
-  }
-}
-
 class SectionFooter extends StatelessWidget {
   const SectionFooter({
     super.key,
@@ -124,7 +50,7 @@ class SectionFooter extends StatelessWidget {
           children: [
             AppConstants.height(80),
             Container(
-              constraints: const BoxConstraints(maxWidth: 1115),
+              constraints: const BoxConstraints(maxWidth: 1152),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -216,7 +142,7 @@ class SectionFooter extends StatelessWidget {
             ),
             Container(
               constraints: const BoxConstraints(
-                maxWidth: 1115,
+                maxWidth: 1152,
               ),
               child: const Divider(
                 color: Colors.white,
@@ -301,22 +227,36 @@ class Section3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(
-        maxWidth: 1115,
+        maxWidth: 1152,
       ),
-      child: const Column(
+      child:  Column(
         children: [
           Text(
-            AppConstants.homeTextsection3title,
+            AppConstants.homeTitleBenefit,
             style: TextStyle(
-              fontSize: 30,
+              fontSize: 27,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Theme.of(context).primaryColor,
             ),
           ),
-          SizedBox(
-            height: 50,
+          const SizedBox(
+            height: 19,
           ),
-          Row(
+          const SizedBox(
+            width: 560,
+            child: Text(
+              AppConstants.homeDescBenefit,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(
+            height: 70,
+          ),
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Section3Item(
@@ -358,10 +298,6 @@ class Section3Item extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Theme.of(context).primaryColor.withOpacity(0.2),
-            ),
             child: Image.asset(
               image,
               width: 55,
@@ -370,7 +306,7 @@ class Section3Item extends StatelessWidget {
           AppConstants.height(15),
           Text(
             title,
-            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),
           ),
           AppConstants.height(16),
           Text(
@@ -399,9 +335,9 @@ class Section2 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(
-            "assets/images/group2.png",
-            width: 392,
-            height: 360,
+            "assets/images/img_home2.png",
+            width: 462,
+            height: 450.68,
           ),
           Column(
             children: [
@@ -410,11 +346,11 @@ class Section2 extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                     Text(
                       AppConstants.homeText4,
                       style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.black,
+                        fontSize: 27,
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.start,
@@ -447,21 +383,29 @@ class Section1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(
-        maxWidth: 1115,
+        maxWidth: 1152,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            width: 546,
+            width: 590,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   AppConstants.homeText1,
                   style: TextStyle(
-                    fontSize: 64,
+                    fontSize: 55,
                     color: Colors.black,
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
+                 Text(
+                  AppConstants.homeText1_2,
+                  style: TextStyle(
+                    fontSize: 55,
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -469,7 +413,7 @@ class Section1 extends StatelessWidget {
                 const Text(
                   AppConstants.homeText2,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     color: Colors.black,
                   ),
                 ),
@@ -496,9 +440,9 @@ class Section1 extends StatelessWidget {
             ),
           ),
           Image.asset(
-            "assets/images/group1.png",
-            width: 415,
-            height: 531,
+            "assets/images/img_home1.png",
+            width: 534,
+            height: 455,
           )
         ],
       ),

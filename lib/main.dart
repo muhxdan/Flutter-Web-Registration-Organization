@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendaftaran_organisasi_mahasiswa/utils/themes/themes.dart';
 
 import 'presentation/pages/galery_screen.dart';
@@ -45,41 +44,10 @@ class _MainPageState extends State<MainPage> {
   TextEditingController textController = TextEditingController();
 
   int position = 0;
-  List<String> navList = ['Home', 'Informasi', 'Pendaftaran', 'Galeri'];
-
-  void _showSubMenu(BuildContext context) {
-    final RenderBox renderBox = context.findRenderObject() as RenderBox;
-    final position = renderBox.localToGlobal(Offset.zero);
-
-    showMenu(
-      context: context,
-      position: RelativeRect.fromLTRB(
-        position.dx,
-        position.dy + renderBox.size.height,
-        position.dx + renderBox.size.width,
-        position.dy + renderBox.size.height + 1.0,
-      ),
-      items: <PopupMenuItem<String>>[
-        const PopupMenuItem<String>(
-          value: 'Information 1',
-          child: Text('Information 1'),
-        ),
-        const PopupMenuItem<String>(
-          value: 'Information 2',
-          child: Text('Information 2'),
-        ),
-      ],
-    ).then((selectedSubMenu) {
-      if (selectedSubMenu != null) {
-        _selectSubMenu(selectedSubMenu);
-      }
-    });
-  }
+  List<String> navList = ['Home', 'Informasi', 'Dokumentasi', 'Pendaftaran'];
 
   void _selectSubMenu(String selectedSubMenu) {
     setState(() {
-      // Implementasikan tindakan yang sesuai berdasarkan pilihan submenu yang dipilih di sini
-      // Misalnya, Anda bisa mengganti nilai position ke indeks 'Informasi' jika submenu dipilih
       position = navList.indexOf('Informasi');
       print(selectedSubMenu);
     });
@@ -87,37 +55,8 @@ class _MainPageState extends State<MainPage> {
 
   Widget navBody = const HomeScreen();
 
-  String searchIndex = '';
-
-  final TextEditingController _searchController = TextEditingController();
-  List<String> organizations = [
-    "Organisasi Informatika",
-    "Organisasi Mahasiswa",
-    "Organization",
-    "Organisasi Bebek",
-  ];
-  List<String> searchResults = [];
-
-  void _searchOrganizations(String query) {
-    setState(() {
-      if (query.isEmpty) {
-        searchResults.clear();
-      } else {
-        searchResults = organizations.where((org) {
-          final orgWords = org.toLowerCase().split(" ");
-          final queryWords = query.toLowerCase().split(" ");
-          return queryWords.every((queryWord) =>
-              orgWords.any((orgWord) => orgWord.startsWith(queryWord)));
-        }).toList();
-      }
-    });
-  }
-
-  bool isExpanded = false;
-
   @override
   void dispose() {
-    _searchController.dispose();
     super.dispose();
   }
 
@@ -132,7 +71,6 @@ class _MainPageState extends State<MainPage> {
           preferredSize: ResponsiveLayout.isSmallScreen(context)
               ? const Size.fromHeight(50.0)
               : const Size.fromHeight(0.0),
-          // here the desired height
           child: AppBar(
             centerTitle: true,
             elevation: 0.0,
@@ -175,213 +113,151 @@ class _MainPageState extends State<MainPage> {
                   )),
             )
           : null,
-      body: GestureDetector(
-        onTap: () {
-          if (isExpanded) {
-            // Tutup SearchBar jika sedang terbuka
-            setState(() {
-              isExpanded = false;
-            });
-          }
-        },
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Visibility(
-                visible: ResponsiveLayout.isSmallScreen(context) ? false : true,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  constraints: const BoxConstraints(
-                    maxWidth: 1115,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(children: [
-                        Image.asset(
-                          "assets/images/logo.png",
-                          width: 80,
-                          height: 80,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Image.asset(
-                          "assets/images/logo_hima.png",
-                          width: 70,
-                          height: 70,
-                        ),
-                      ]),
-                      SizedBox(
-                        height: 50,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: navList.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (BuildContext context, int index) {
-                            return index == 1
-                                ? Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      child: PopupMenuButton<String>(
-                                        offset: const Offset(80, 50),
-                                        onSelected: (selectedSubMenu) {
-                                          _selectSubMenu(selectedSubMenu);
-                                        },
-                                        itemBuilder: (context) => [
-                                          const PopupMenuItem(
-                                            value: 'Information 1',
-                                            child: Text('Information 1'),
-                                          ),
-                                          const PopupMenuItem(
-                                            value: 'Information 2',
-                                            child: Text('Information 2'),
-                                          ),
-                                        ],
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 15,
-                                            horizontal: 10,
-                                          ),
-                                          child: Text(
-                                            navList[index],
-                                            style: TextStyle(
-                                              color: position == index
-                                                  ? Theme.of(context)
-                                                      .primaryColor
-                                                  : Colors.black,
-                                              fontSize: 17,
-                                              fontWeight: position == index
-                                                  ? FontWeight.bold
-                                                  : FontWeight.normal,
-                                            ),
-                                          ),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            Visibility(
+              visible: ResponsiveLayout.isSmallScreen(context) ? false : true,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                constraints: const BoxConstraints(
+                  maxWidth: 1152,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.asset(
+                      "assets/images/logo_hima.png",
+                      width: 70,
+                      height: 70,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          height: 50,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: navList.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (BuildContext context, int index) {
+                              return index == 1
+                                  ? Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 7),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: PopupMenuButton<String>(
+                                    offset: const Offset(80, 50),
+                                    onSelected: (selectedSubMenu) {
+                                      _selectSubMenu(selectedSubMenu);
+                                    },
+                                    itemBuilder: (context) => [
+                                      const PopupMenuItem(
+                                        value: 'Information 1',
+                                        child: Text('Information 1'),
+                                      ),
+                                      const PopupMenuItem(
+                                        value: 'Information 2',
+                                        child: Text('Information 2'),
+                                      ),
+                                    ],
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 15,
+                                        horizontal: 10,
+                                      ),
+                                      child: Text(
+                                        navList[index],
+                                        style: TextStyle(
+                                          color: position == index
+                                              ? Theme.of(context)
+                                              .primaryColor
+                                              : Colors.black,
+                                          fontSize: 17,
+                                          fontWeight: position == index
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
                                         ),
                                       ),
                                     ),
-                                  )
-                                : Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 7),
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      child: InkWell(
-                                        splashColor: Theme.of(context)
-                                            .primaryColor
-                                            .withOpacity(.2),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 15,
-                                            horizontal: 10,
-                                          ),
-                                          child: Text(
-                                            navList[index],
-                                            style: TextStyle(
-                                              color: position == index
-                                                  ? Theme.of(context)
-                                                      .primaryColor
-                                                  : Colors.black,
-                                              fontSize: 17,
-                                              fontWeight: position == index
-                                                  ? FontWeight.bold
-                                                  : FontWeight.normal,
-                                            ),
-                                          ),
-                                        ),
-                                        onTap: () {
-                                          setState(() {
-                                            position = index;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  );
-                          },
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              overlayColor: MaterialStateProperty.all(
-                                  Theme.of(context)
-                                      .primaryColor
-                                      .withOpacity(.2)),
-                              minimumSize: MaterialStateProperty.all(
-                                  const Size(100, 50)),
-                              foregroundColor:
-                                  MaterialStateProperty.all(Colors.black),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6.0),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            child: const Text(
-                              "Sign up",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              )
+                                  : Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 7),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    splashColor: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(.2),
+                                    borderRadius:
+                                    BorderRadius.circular(10.0),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 15,
+                                        horizontal: 10,
+                                      ),
+                                      child: Text(
+                                        navList[index],
+                                        style: TextStyle(
+                                          color: position == index
+                                              ? Theme.of(context)
+                                              .primaryColor
+                                              : Colors.black,
+                                          fontSize: 17,
+                                          fontWeight: position == index
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        position = index;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 20,),
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            minimumSize: const Size(100, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6.0),
                             ),
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.white,
-                              backgroundColor: Theme.of(context).primaryColor,
-                              minimumSize: const Size(100, 50),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6.0),
-                              ),
-                            ),
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ],
-                      )
-                    ],
-                  ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ),
-              Visibility(
-                visible: searchIndex.isNotEmpty ? true : false,
-                child: Expanded(
-                  child: ListView.builder(
-                    itemCount: searchResults.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(searchResults[index]),
-                        // Handle item selection here
-                      );
-                    },
-                  ),
+            ),
+            Expanded(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: SingleChildScrollView(
+                  child: navPage(position),
                 ),
               ),
-              Expanded(
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: SingleChildScrollView(
-                    child: navPage(position),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
