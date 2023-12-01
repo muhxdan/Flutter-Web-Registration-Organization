@@ -5,8 +5,12 @@ class InformationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Information Screen"),
+    return Container(
+      color: Colors.white,
+      margin: const EdgeInsets.only(top: 44),
+      child: const Column(
+        children: [],
+      ),
     );
   }
 }
