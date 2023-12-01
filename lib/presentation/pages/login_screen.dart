@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _isLoading = true;
       });
       String result =
-          await AuthMethods().signInUser(email: _email!, password: _password!);
+      await AuthMethods().signInUser(email: _email!, password: _password!);
       if (result != 'success') {
         showSnackBar(result, context);
         print(result);
@@ -131,12 +131,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         child: _isLoading
                             ? Center(
-                                child: Transform.scale(
-                                scale: 0.5,
-                                child: const CircularProgressIndicator(
-                                  color: Colors.white,
-                                ),
-                              ))
+                            child: Transform.scale(
+                              scale: 0.5,
+                              child: const CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ))
                             : const Text('Sign In'),
                       ),
                       const SizedBox(
@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const RegistrationScreen(),
+                                      const RegistrationScreen(),
                                     ),
                                   );
                                 },
@@ -228,4 +228,13 @@ class CustomTextField extends StatelessWidget {
       ),
     );
   }
+}
+
+void showSnackBar(String message, BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(message),
+      duration: const Duration(seconds: 1),
+    ),
+  );
 }
