@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:js' as js; // Import JavaScript interop
+import 'dart:js' as js;
 import '../../utils/appConstants.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -24,86 +24,10 @@ class HomeScreen extends StatelessWidget {
           const Section1(),
           AppConstants.height(150),
           const Section2(),
-          AppConstants.height(120),
+          AppConstants.height(150),
           const Section3(),
           AppConstants.height(150),
-          const Section4(),
-          AppConstants.height(120),
           const SectionFooter(),
-        ],
-      ),
-    );
-  }
-}
-
-class Section4 extends StatelessWidget {
-  const Section4({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 1115,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: 612,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RichText(
-                  text: const TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "Eksplorasi Organisasi\nMahasiswa: ",
-                        style: TextStyle(
-                          fontSize: 40,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextSpan(
-                        text: "Galeri Kegiatan",
-                        style: TextStyle(
-                          fontSize: 40,
-                          color: Colors.black,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                AppConstants.height(48),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Theme.of(context).primaryColor,
-                    minimumSize: const Size(200, 55),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
-                    ),
-                  ),
-                  child: const Text(
-                    "GALERI",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Image.asset(
-            "assets/images/group3.png",
-            width: 415,
-            height: 531,
-          )
         ],
       ),
     );
@@ -126,12 +50,12 @@ class SectionFooter extends StatelessWidget {
           children: [
             AppConstants.height(80),
             Container(
-              constraints: const BoxConstraints(maxWidth: 1115),
+              constraints: const BoxConstraints(maxWidth: 1152),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: 432,
+                    width: 459,
                     height: 246,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,16 +65,16 @@ class SectionFooter extends StatelessWidget {
                             Image.asset(
                               "assets/images/logo_white.png",
                               width: 70,
+                              height: 70,
                             ),
-                            AppConstants.width(7),
-                            const Text(
-                              "Universitas\nTeknologi Digital\nIndonesia",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            )
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Image.asset(
+                              "assets/images/logo_hima_white.png",
+                              width: 60,
+                              height: 60,
+                            ),
                           ],
                         ),
                         AppConstants.height(30),
@@ -158,10 +82,11 @@ class SectionFooter extends StatelessWidget {
                           AppConstants.homeText12,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 13,
+                            fontSize: 14,
                           ),
+                          textAlign: TextAlign.justify,
                         ),
-                        AppConstants.height(50),
+                        AppConstants.height(30),
                         const SizedBox(
                           width: 200,
                           child: Row(
@@ -169,20 +94,25 @@ class SectionFooter extends StatelessWidget {
                             children: [
                               SocialMediaList(
                                 image: "assets/images/ic_youtube.svg",
-                                url: "https://www.youtube.com/@utdiofficial",
+                                url: "https://www.youtube.com/@himforkautdi4861",
                               ),
                               SocialMediaList(
                                 image: "assets/images/ic_instagram.svg",
-                                url: "https://www.instagram.com/utdiofficial/",
+                                url: "https://instagram.com/himaforka_utdi",
                               ),
                               SocialMediaList(
-                                image: "assets/images/ic_google.svg",
-                                url: "https://www.utdi.ac.id/",
+                                image: "assets/images/ic_twitter.svg",
+                                url: "https://twitter.com/himaforka_utdi",
                               ),
                               SocialMediaList(
                                 image: "assets/images/ic_linkedin.svg",
                                 url:
-                                    "https://www.linkedin.com/school/utdiofficial/",
+                                    "https://www.linkedin.com/in/himaforka-utdi-62938824a",
+                              ),
+                              SocialMediaList(
+                                image: "assets/images/ic_facebook.svg",
+                                url:
+                                "https://www.facebook.com/hmjtiakakom",
                               ),
                             ],
                           ),
@@ -197,12 +127,12 @@ class SectionFooter extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const ListInfoUniv(
-                          title: "Address:",
+                          title: "Alamat:",
                           desc: AppConstants.homeText13,
                         ),
                         AppConstants.height(25),
                         const ListInfoUniv(
-                          title: "Phone:",
+                          title: "Whatsapp:",
                           desc: AppConstants.homeText14,
                         ),
                         AppConstants.height(25),
@@ -218,7 +148,7 @@ class SectionFooter extends StatelessWidget {
             ),
             Container(
               constraints: const BoxConstraints(
-                maxWidth: 1115,
+                maxWidth: 1152,
               ),
               child: const Divider(
                 color: Colors.white,
@@ -259,12 +189,13 @@ class ListInfoUniv extends StatelessWidget {
           style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
+            fontSize: 14
           ),
         ),
         AppConstants.height(6),
         Text(
           desc,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white, fontSize: 14),
         )
       ],
     );
@@ -303,25 +234,54 @@ class Section3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(
-        maxWidth: 1115,
+        maxWidth: 1152,
       ),
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child:  Column(
         children: [
-          Section3Item(
-            image: "assets/images/section2-1.png",
-            title: AppConstants.homeText6,
-            desc: AppConstants.homeText9,
+          Text(
+            AppConstants.homeTitleBenefit,
+            style: TextStyle(
+              fontSize: 27,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
-          Section3Item(
-            image: "assets/images/section2-2.png",
-            title: AppConstants.homeText7,
-            desc: AppConstants.homeText10,
+          const SizedBox(
+            height: 15,
           ),
-          Section3Item(
-            image: "assets/images/section2-3.png",
-            title: AppConstants.homeText8,
-            desc: AppConstants.homeText11,
+          const SizedBox(
+            width: 560,
+            child: Text(
+              AppConstants.homeDescBenefit,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(
+            height: 70,
+          ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Section3Item(
+                image: "assets/images/section2-1.png",
+                title: AppConstants.homeText6,
+                desc: AppConstants.homeText9,
+              ),
+              Section3Item(
+                image: "assets/images/section2-2.png",
+                title: AppConstants.homeText7,
+                desc: AppConstants.homeText10,
+              ),
+              Section3Item(
+                image: "assets/images/section2-3.png",
+                title: AppConstants.homeText8,
+                desc: AppConstants.homeText11,
+              ),
+            ],
           ),
         ],
       ),
@@ -343,23 +303,16 @@ class Section3Item extends StatelessWidget {
       width: 335,
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: const Color(0xffF5F9FC),
-            ),
-            child: Image.asset(
-              image,
-              width: 55,
-            ),
+          Image.asset(
+            image,
+            width: 55,
           ),
-          AppConstants.height(15),
+          AppConstants.height(20),
           Text(
             title,
-            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),
           ),
-          AppConstants.height(16),
+          AppConstants.height(15),
           Text(
             desc,
             style: const TextStyle(fontSize: 15),
@@ -380,37 +333,40 @@ class Section2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(
-        maxWidth: 1115,
+        maxWidth: 1152,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(
-            "assets/images/group2.png",
-            width: 392,
-            height: 360,
+            "assets/images/img_home2.png",
+            width: 462,
+            height: 450.68,
           ),
           Column(
             children: [
               SizedBox(
                 width: 546,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                     Text(
                       AppConstants.homeText4,
                       style: TextStyle(
-                        fontSize: 38,
-                        color: Colors.black,
+                        fontSize: 27,
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
-                      ),
+                        ),
+                      textAlign: TextAlign.start,
                     ),
-                    AppConstants.height(24),
-                    const Text(
+                    AppConstants.height(15),
+                     const Text(
                       AppConstants.homeText5,
                       style: TextStyle(
-                        fontSize: 17,
+                        fontSize: 16,
                         color: Colors.black,
                       ),
+                       textAlign: TextAlign.justify,
                     ),
                   ],
                 ),
@@ -432,21 +388,29 @@ class Section1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(
-        maxWidth: 1115,
+        maxWidth: 1152,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            width: 546,
+            width: 590,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
                   AppConstants.homeText1,
                   style: TextStyle(
-                    fontSize: 64,
+                    fontSize: 55,
                     color: Colors.black,
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
+                 Text(
+                  AppConstants.homeText1_2,
+                  style: TextStyle(
+                    fontSize: 55,
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -454,9 +418,10 @@ class Section1 extends StatelessWidget {
                 const Text(
                   AppConstants.homeText2,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     color: Colors.black,
                   ),
+                  textAlign: TextAlign.justify,
                 ),
                 AppConstants.height(48),
                 ElevatedButton(
@@ -481,9 +446,9 @@ class Section1 extends StatelessWidget {
             ),
           ),
           Image.asset(
-            "assets/images/group1.png",
-            width: 415,
-            height: 531,
+            "assets/images/img_home1.png",
+            width: 534,
+            height: 455,
           )
         ],
       ),
