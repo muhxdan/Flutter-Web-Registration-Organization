@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pendaftaran_organisasi_mahasiswa/utils/themes/themes.dart';
 
-import 'presentation/pages/galery_screen.dart';
+import 'presentation/pages/documentation_screen.dart';
 import 'presentation/pages/home_screen.dart';
 import 'presentation/pages/information_screen.dart';
 import 'presentation/pages/registration_screen.dart';
@@ -45,13 +45,6 @@ class _MainPageState extends State<MainPage> {
 
   int position = 0;
   List<String> navList = ['Home', 'Informasi', 'Dokumentasi', 'Pendaftaran'];
-
-  void _selectSubMenu(String selectedSubMenu) {
-    setState(() {
-      position = navList.indexOf('Informasi');
-      print(selectedSubMenu);
-    });
-  }
 
   Widget navBody = const HomeScreen();
 
@@ -155,87 +148,42 @@ class _MainPageState extends State<MainPage> {
                             itemCount: navList.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (BuildContext context, int index) {
-                              return index == 1
-                                  ? Container(
+                              return Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 7),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    splashColor: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(.2),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Container(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 7),
-                                      child: Material(
-                                        color: Colors.transparent,
-                                        child: PopupMenuButton<String>(
-                                          offset: const Offset(80, 50),
-                                          onSelected: (selectedSubMenu) {
-                                            _selectSubMenu(selectedSubMenu);
-                                          },
-                                          itemBuilder: (context) => [
-                                            const PopupMenuItem(
-                                              value: 'Information 1',
-                                              child: Text('Information 1'),
-                                            ),
-                                            const PopupMenuItem(
-                                              value: 'Information 2',
-                                              child: Text('Information 2'),
-                                            ),
-                                          ],
-                                          child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              vertical: 15,
-                                              horizontal: 10,
-                                            ),
-                                            child: Text(
-                                              navList[index],
-                                              style: TextStyle(
-                                                color: position == index
-                                                    ? Theme.of(context)
-                                                        .primaryColor
-                                                    : Colors.black,
-                                                fontSize: 14,
-                                                fontWeight: position == index
-                                                    ? FontWeight.bold
-                                                    : FontWeight.normal,
-                                              ),
-                                            ),
-                                          ),
+                                        vertical: 15,
+                                        horizontal: 10,
+                                      ),
+                                      child: Text(
+                                        navList[index],
+                                        style: TextStyle(
+                                          color: position == index
+                                              ? Theme.of(context).primaryColor
+                                              : Colors.black,
+                                          fontSize: 14,
+                                          fontWeight: position == index
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
                                         ),
                                       ),
-                                    )
-                                  : Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 7),
-                                      child: Material(
-                                        color: Colors.transparent,
-                                        child: InkWell(
-                                          splashColor: Theme.of(context)
-                                              .primaryColor
-                                              .withOpacity(.2),
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              vertical: 15,
-                                              horizontal: 10,
-                                            ),
-                                            child: Text(
-                                              navList[index],
-                                              style: TextStyle(
-                                                color: position == index
-                                                    ? Theme.of(context)
-                                                        .primaryColor
-                                                    : Colors.black,
-                                                fontSize: 14,
-                                                fontWeight: position == index
-                                                    ? FontWeight.bold
-                                                    : FontWeight.normal,
-                                              ),
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            setState(() {
-                                              position = index;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    );
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        position = index;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              );
                             },
                           ),
                         ),
@@ -287,9 +235,9 @@ class _MainPageState extends State<MainPage> {
       } else if (clickPosition == 1) {
         navBody = const InformationScreen();
       } else if (clickPosition == 2) {
-        navBody = const RegistrationScreen();
+        navBody = const DocumentationScreen();
       } else if (clickPosition == 3) {
-        navBody = const GaleryScreen();
+        navBody = const RegistrationScreen();
       }
     });
     return navBody;
