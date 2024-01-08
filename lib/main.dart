@@ -25,7 +25,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -258,7 +257,7 @@ class _MainPageState extends State<MainPage> {
       } else if (clickPosition == 1) {
         navBody = const InformationScreen();
       } else if (clickPosition == 2) {
-        navBody = const DocumentationScreen();
+        navBody = DocumentationScreen();
       } else if (clickPosition == 3) {
         navBody = const RegistrationScreen();
       }

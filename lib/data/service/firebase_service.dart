@@ -14,22 +14,24 @@ class AuthMethods {
 
   Future<String> signUpUser({
     required String? name,
+    required String? nim,
     required String? email,
     required String? password,
-    required String? username,
   }) async {
     String result = 'Some error occurred';
     try {
-      if (email!.isNotEmpty || name!.isNotEmpty || password!.isNotEmpty) {
+      if (email!.isNotEmpty ||
+          nim!.isNotEmpty ||
+          name!.isNotEmpty ||
+          password!.isNotEmpty) {
         UserCredential user = await _auth.createUserWithEmailAndPassword(
             email: email, password: password!);
-        print(user.user!.uid);
 
         UserModel userModel = UserModel(
           email: email,
+          nim: nim!,
           name: name!,
           uid: user.user!.uid,
-          username: username!,
         );
 
         await _firestore.collection('users').doc(user.user!.uid).set(
@@ -63,33 +65,33 @@ class AuthMethods {
 
 class UserModel {
   final String email;
+  final String nim;
   final String name;
   final String uid;
-  final String username;
   final String? as;
 
   UserModel(
       {required this.email,
       required this.name,
-      required this.username,
+      required this.nim,
       required this.uid,
       this.as});
 
   Map<String, dynamic> toJson() => {
+        "name": name,
+        "nim": nim,
         "email": email,
         "uid": uid,
-        "name": name,
-        "username": username,
         "as": "user",
       };
 
   static UserModel? fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
     return UserModel(
-      username: snapshot['username'],
-      uid: snapshot['uid'],
       name: snapshot['name'],
+      nim: snapshot['nim'],
       email: snapshot['email'],
+      uid: snapshot['uid'],
       as: snapshot['as'],
     );
   }

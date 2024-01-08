@@ -1,19 +1,20 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:pendaftaran_organisasi_mahasiswa/presentation/pages/signup_screen.dart';
+import 'package:pendaftaran_organisasi_mahasiswa/presentation/pages/login_screen.dart';
 
 import '../../data/service/firebase_service.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
+  String? _name;
+  String? _nim;
   String? _email;
   String? _password;
 
@@ -22,23 +23,23 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _signIn() async {
+  void _signUp() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       setState(() {
         _isLoading = true;
       });
-      String result =
-          await AuthMethods().signInUser(email: _email!, password: _password!);
+      String result = await AuthMethods().signUpUser(
+          name: _name, nim: _nim, email: _email, password: _password);
       if (result != 'success') {
         showSnackBar(result, context);
-        print(result);
       } else {
-        showSnackBar("success", context);
+        showSnackBar("Berhasil membuat akun", context);
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.pop(context);
       }
-      setState(() {
-        _isLoading = false;
-      });
     }
   }
 
@@ -57,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Selamat Datang 👋",
+                    "Buat Akun",
                     style: TextStyle(
                       fontSize: 30,
                       color: Colors.black,
@@ -71,6 +72,39 @@ class _LoginScreenState extends State<LoginScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          const Text(
+                            'Nama',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          CustomTextField(
+                            keyboardType: TextInputType.text,
+                            hintText: "John Doe",
+                            isPassword: false,
+                            onSaved: (input) => _name = input!,
+                          ),
+                          const Text(
+                            'Nim',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          CustomTextField(
+                            keyboardType: TextInputType.number,
+                            hintText: "20****112",
+                            isPassword: false,
+                            onSaved: (input) => _nim = input!,
+                            validator: (input) {
+                              if (input!.contains(RegExp(r'[0-9]'))) {
+                                return null;
+                              } else {
+                                return 'Input hanya boleh mengandung angka';
+                              }
+                            },
+                          ),
                           const Text(
                             'Email',
                             style: TextStyle(
@@ -109,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () {
-                      _signIn();
+                      _signUp();
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -127,33 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Colors.white,
                             ),
                           ))
-                        : const Text('Sign in'),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: "Belum memiliki akun? ",
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Buat akun',
-                          style: const TextStyle(
-                            color: Colors.blue,
-                            decoration: TextDecoration.underline,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const SignupScreen(),
-                                ),
-                              );
-                            },
-                        ),
-                      ],
-                    ),
+                        : const Text('Sign up'),
                   ),
                 ],
               ),
@@ -163,53 +171,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-}
-
-class CustomTextField extends StatelessWidget {
-  final TextInputType keyboardType;
-  final String hintText;
-  final bool isPassword;
-  final void Function(String?)? onSaved;
-  final String? Function(String?)? validator;
-
-  const CustomTextField({
-    Key? key,
-    required this.keyboardType,
-    required this.hintText,
-    required this.isPassword,
-    this.onSaved,
-    this.validator,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      onSaved: onSaved,
-      validator: validator,
-      keyboardType: keyboardType,
-      cursorColor: const Color(0xFF162D3A),
-      obscureText: isPassword,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        hintText: hintText,
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Color(0xFF162D3A), // Default color
-          ),
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-    );
-  }
-}
-
-void showSnackBar(String message, BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(message),
-      duration: const Duration(seconds: 1),
-    ),
-  );
 }
